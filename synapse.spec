@@ -5,7 +5,7 @@ Release:	0.1
 License:	GPL v3+
 Group:		X11/Applications
 Source0:	https://launchpad.net/synapse-project/0.2/%{version}/+download/%{name}-%{version}.tar.gz
-# Source0-md5:	de0e05350f8a7d557092489baf14d039
+# Source0-md5:	ac1c075c01f1c179f32fd6651bd184f8
 URL:		http://synapse.zeitgeist-project.com/
 # The dependencies are listed in Makefile
 BuildRequires:	vala >= 1:0.15.2
