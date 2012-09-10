@@ -31,18 +31,22 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
 %update_icon_cache hicolor
 %update_desktop_database
-%glib_compile_schemas
 
 %postun
 %update_icon_cache hicolor
 %update_desktop_database_postun
-%glib_compile_schemas
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/synapse
+%{_iconsdir}/hicolor/scalable/apps/*.svg
+%{_desktopdir}/*.desktop
+%{_mandir}/man1/synapse.*
