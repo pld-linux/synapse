@@ -7,8 +7,10 @@ Group:		X11/Applications
 Source0:	https://launchpad.net/synapse-project/0.2/%{version}/+download/%{name}-%{version}.tar.gz
 # Source0-md5:	ac1c075c01f1c179f32fd6651bd184f8
 URL:		http://synapse.zeitgeist-project.com/
-# The dependencies are listed in Makefile
-BuildRequires:	vala >= 1:0.15.2
+BuildRequires:	gtkhotkey-devel >= 0.2.1
+BuildRequires:	libunique-devel >= 1.0
+BuildRequires:	vala-libgee >= 0.6.4
+BuildRequires:	vala-zeitgeist >= 0.3.18
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
