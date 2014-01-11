@@ -16,11 +16,11 @@ BuildRequires:	json-glib-devel >= 0.10.0
 BuildRequires:	libgee0.6-devel >= 0.5.2
 BuildRequires:	libnotify-devel
 BuildRequires:	libunique-devel >= 1.0
+BuildRequires:	libzeitgeist-devel >= 0.3.18
 BuildRequires:	rest-devel
 BuildRequires:	vala >= 0.14.0
 BuildRequires:	vala-libgee >= 0.6.4
 BuildRequires:	vala-zeitgeist >= 0.3.18
-BuildRequires:	zeitgeist-devel >= 0.3.18
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
