@@ -1,37 +1,3 @@
-diff -urN synapse-0.2.10.orig/src/core/desktop-file-service.vala synapse-0.2.10/src/core/desktop-file-service.vala
---- synapse-0.2.10.orig/src/core/desktop-file-service.vala	2013-08-18 18:33:35.710536590 +0200
-+++ synapse-0.2.10/src/core/desktop-file-service.vala	2013-08-18 18:33:55.187202928 +0200
-@@ -39,8 +39,9 @@
-       XFCE  = 1 << 4,
-       OLD   = 1 << 5,
-       UNITY = 1 << 6,
-+      MATE  = 1 << 7,
- 
--      ALL   = 0x7F
-+      ALL   = 0xFF
-     }
-    
-     public string desktop_id { get; construct set; } 
-@@ -92,6 +93,7 @@
-           case "ROX": result |= EnvironmentType.ROX; break;
-           case "OLD": result |= EnvironmentType.OLD; break;
-           case "UNITY": result |= EnvironmentType.UNITY; break;
-+          case "MATE": result |= EnvironmentType.MATE; break;
-           default: warning ("%s is not understood", env); break;
-         }
-       }
-@@ -284,6 +286,11 @@
-         session_type = DesktopFileInfo.EnvironmentType.ROX;
-         session_type_str = "ROX";
-       }
-+      else if (session.has_prefix ("mate"))
-+      {
-+        session_type = DesktopFileInfo.EnvironmentType.MATE;
-+        session_type_str = "MATE";
-+      }
-       else
-       {
-         warning ("Desktop session type is not recognized, assuming GNOME.");
 diff -urN synapse-0.2.10.orig/src/plugins/Makefile.am synapse-0.2.10/src/plugins/Makefile.am
 --- synapse-0.2.10.orig/src/plugins/Makefile.am	2013-08-18 18:33:35.710536590 +0200
 +++ synapse-0.2.10/src/plugins/Makefile.am	2013-08-18 18:33:44.427203171 +0200
@@ -46,7 +12,7 @@ diff -urN synapse-0.2.10.orig/src/plugins/Makefile.am synapse-0.2.10/src/plugins
 diff -urN synapse-0.2.10.orig/src/plugins/mate-session-plugin.vala synapse-0.2.10/src/plugins/mate-session-plugin.vala
 --- synapse-0.2.10.orig/src/plugins/mate-session-plugin.vala	1970-01-01 01:00:00.000000000 +0100
 +++ synapse-0.2.10/src/plugins/mate-session-plugin.vala	2013-08-18 18:33:44.427203171 +0200
-@@ -0,0 +1,220 @@
+@@ -0,0 +1,196 @@
 +/*
 + * Copyright (C) 2010 Michal Hruby <michal.mhr@gmail.com>
 + *
@@ -96,24 +62,16 @@ diff -urN synapse-0.2.10.orig/src/plugins/mate-session-plugin.vala synapse-0.2.1
 +      
 +    }
 +
-+    private class ShutDownAction: Object, Match
++    private class ShutDownAction: ActionMatch
 +    {
-+      // for Match interface
-+      public string title { get; construct set; }
-+      public string description { get; set; default = ""; }
-+      public string icon_name { get; construct set; default = ""; }
-+      public bool has_thumbnail { get; construct set; default = false; }
-+      public string thumbnail_path { get; construct set; }
-+      public MatchType match_type { get; construct set; }
-+
 +      public ShutDownAction ()
 +      {
-+        Object (match_type: MatchType.ACTION, title: _ ("Shut Down"),
-+                description: _ ("Turn your computer off"),
++        Object (title: _("Shut Down"),
++                description: _("Turn your computer off"),
 +                icon_name: "system-shutdown", has_thumbnail: false);
 +      }
 +      
-+      public void execute (Match? match)
++      public override void do_action ()
 +      {
 +        try
 +        {
@@ -130,24 +88,16 @@ diff -urN synapse-0.2.10.orig/src/plugins/mate-session-plugin.vala synapse-0.2.1
 +      }
 +    }
 +
-+    private class RebootAction: Object, Match
++    private class RebootAction: ActionMatch
 +    {
-+      // for Match interface
-+      public string title { get; construct set; }
-+      public string description { get; set; default = ""; }
-+      public string icon_name { get; construct set; default = ""; }
-+      public bool has_thumbnail { get; construct set; default = false; }
-+      public string thumbnail_path { get; construct set; }
-+      public MatchType match_type { get; construct set; }
-+
 +      public RebootAction ()
 +      {
-+        Object (match_type: MatchType.ACTION, title: _ ("Restart"),
-+                description: _ ("Restart your computer"),
-+                icon_name: "system-shutdown", has_thumbnail: false);
++        Object (title: _("Restart"),
++                description: _("Restart your computer"),
++                icon_name: "gnome-session-reboot", has_thumbnail: false);
 +      }
 +      
-+      public void execute (Match? match)
++      public override void do_action ()
 +      {
 +        try
 +        {
@@ -164,24 +114,16 @@ diff -urN synapse-0.2.10.orig/src/plugins/mate-session-plugin.vala synapse-0.2.1
 +      }
 +    }
 +
-+    private class LogOutAction: Object, Match
++    private class LogOutAction: ActionMatch
 +    {
-+      // for Match interface
-+      public string title { get; construct set; }
-+      public string description { get; set; default = ""; }
-+      public string icon_name { get; construct set; default = ""; }
-+      public bool has_thumbnail { get; construct set; default = false; }
-+      public string thumbnail_path { get; construct set; }
-+      public MatchType match_type { get; construct set; }
-+
 +      public LogOutAction ()
 +      {
-+        Object (match_type: MatchType.ACTION, title: _ ("Log Out"),
-+                description: _ ("Close your session and return to the login screen"),
-+                icon_name: "system-log-out", has_thumbnail: false);
++        Object (title: _("Log Out"),
++                description: _("Close your session and return to the login screen"),
++                icon_name: "gnome-session-logout", has_thumbnail: false);
 +      }
 +      
-+      public void execute (Match? match)
++      public override void do_action ()
 +      {
 +        try
 +        {
@@ -205,7 +147,7 @@ diff -urN synapse-0.2.10.orig/src/plugins/mate-session-plugin.vala synapse-0.2.1
 +    
 +    static void register_plugin ()
 +    {
-+      DataSink.PluginRegistry.get_default ().register_plugin (
++      PluginRegistry.get_default ().register_plugin (
 +        typeof (MateSessionPlugin),
 +        "MATE Session",
 +        _ ("Log out from your session."),
@@ -228,7 +170,7 @@ diff -urN synapse-0.2.10.orig/src/plugins/mate-session-plugin.vala synapse-0.2.1
 +    {
 +      var cache = DBusService.get_default ();
 +      session_manager_available = cache.name_has_owner (MateSessionManager.UNIQUE_NAME);
-+      Utils.Logger.log (this, "%s %s available", MateSessionManager.UNIQUE_NAME,
++      message ("%s %s available", MateSessionManager.UNIQUE_NAME,
 +        session_manager_available ? "is" : "isn't");
 +      
 +      actions = new Gee.LinkedList<Match> ();
@@ -255,7 +197,7 @@ diff -urN synapse-0.2.10.orig/src/plugins/mate-session-plugin.vala synapse-0.2.1
 +        {
 +          if (matcher.key.match (action.title))
 +          {
-+            result.add (action, matcher.value - Match.Score.INCREMENT_SMALL);
++            result.add (action, matcher.value - MatchScore.INCREMENT_SMALL);
 +            break;
 +          }
 +        }

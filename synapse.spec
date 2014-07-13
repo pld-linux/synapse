@@ -1,26 +1,31 @@
+%define		rev	594
+#
 Summary:	Application launcher
 Name:		synapse
-Version:	0.2.10
-Release:	2
+Version:	0.2.99
+Release:	0.%{rev}.1
 License:	GPL v3+
 Group:		X11/Applications
-Source0:	https://launchpad.net/synapse-project/0.2/%{version}/+download/%{name}-%{version}.tar.gz
-# Source0-md5:	ac1c075c01f1c179f32fd6651bd184f8
+Source0:	%{name}-%{version}-r%{rev}.tar.gz
+# Source0-md5:	3fcd00e82bc89cd55a9eb3c75f9ce7c7
 Patch0:		%{name}-mate.patch
-Patch1:		%{name}-gtk_timeout.patch
 URL:		http://synapse.zeitgeist-project.com/
-BuildRequires:	glib2-devel >= 1:2.26.0
-BuildRequires:	gtk+2-devel >= 2:2.20.0
-BuildRequires:	gtkhotkey-devel >= 0.2.1
+BuildRequires:	autoconf >= 2.65
+BuildRequires:	automake >= 1:1.11
+BuildRequires:	glib2-devel >= 1:2.28.0
+BuildRequires:	gtk+3-devel
+BuildRequires:	intltool >= 0.35.0
 BuildRequires:	json-glib-devel >= 0.10.0
-BuildRequires:	libgee0.6-devel >= 0.5.2
+BuildRequires:	keybinder3-devel
+BuildRequires:	libgee-devel >= 0.5.2
 BuildRequires:	libnotify-devel
-BuildRequires:	libunique-devel >= 1.0
-BuildRequires:	libzeitgeist-devel >= 0.3.18
-BuildRequires:	rest-devel
-BuildRequires:	vala >= 0.14.0
-BuildRequires:	vala-libgee0.6 >= 0.6.4
-BuildRequires:	vala-zeitgeist1 >= 0.3.18
+BuildRequires:	libtool
+BuildRequires:	pkgconfig >= 1:0.21
+BuildRequires:	rest-devel >= 0.7
+BuildRequires:	vala >= 0.16.0
+BuildRequires:	vala-libgee >= 0.6.4
+BuildRequires:	vala-zeitgeist >= 0.9.14
+BuildRequires:	zeitgeist-devel >= 0.9.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -31,10 +36,12 @@ files by making use of the Zeitgeist engine.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+%{__mkdir} m4
 
 %build
-%{__aclocal} -I m4
+%{__intltoolize}
+%{__libtoolize}
+%{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %{__automake}
