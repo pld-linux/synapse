@@ -15,12 +15,14 @@ BuildRequires:	gtk+3-devel
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	json-glib-devel >= 0.10.0
 BuildRequires:	keybinder3-devel
+BuildRequires:	libappindicator-gtk3-devel
 BuildRequires:	libgee-devel >= 0.5.2
 BuildRequires:	libnotify-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig >= 1:0.21
 BuildRequires:	rest-devel >= 0.7
 BuildRequires:	vala >= 0.16.0
+BuildRequires:	vala-libappindicator-gtk3
 BuildRequires:	vala-libgee >= 0.6.4
 BuildRequires:	vala-zeitgeist >= 0.9.14
 BuildRequires:	zeitgeist-devel >= 0.9.14
