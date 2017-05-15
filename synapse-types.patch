@@ -1,0 +1,41 @@
+=== modified file 'src/plugins/desktop-file-plugin.vala'
+--- src/plugins/desktop-file-plugin.vala	2015-11-30 22:01:12 +0000
++++ src/plugins/desktop-file-plugin.vala	2016-09-29 17:57:47 +0000
+@@ -83,8 +83,8 @@
+     construct
+     {
+       desktop_files = new Gee.ArrayList<DesktopFileMatch> ();
+-      mimetype_map = new Gee.HashMap<string, OpenWithAction> ();
+-      actions_map = new Gee.HashMap<string, OpenAppAction> ();
++      mimetype_map = new Gee.HashMap<string, Gee.List<OpenWithAction>> ();
++      actions_map = new Gee.HashMap<string, Gee.List<OpenAppAction>> ();
+ 
+       var dfs = DesktopFileService.get_default ();
+       dfs.reload_started.connect (() => {
+
+=== modified file 'src/plugins/hybrid-search-plugin.vala'
+--- src/plugins/hybrid-search-plugin.vala	2014-07-10 11:39:28 +0000
++++ src/plugins/hybrid-search-plugin.vala	2016-09-29 17:57:47 +0000
+@@ -74,7 +74,7 @@
+     construct
+     {
+       directory_hits = new Gee.HashMap<string, int> ();
+-      directory_contents = new Gee.HashMap<string, Utils.FileInfo?> ();
++      directory_contents = new Gee.HashMap<string, DirectoryInfo> ();
+ 
+       analyze_recent_documents.begin ();
+     }
+
+=== modified file 'src/core/result-set.vala'
+--- src/core/result-set.vala	2014-07-10 14:05:57 +0000
++++ src/core/result-set.vala	2016-10-06 09:34:42 +0000
+@@ -57,7 +57,7 @@
+       owned get { return matches.entries; }
+     }
+ 
+-    public Gee.Iterator<Gee.Map.Entry <Match, int>?> iterator ()
++    public Gee.Iterator<Gee.Map.Entry <Match, int>> iterator ()
+     {
+       return matches.iterator ();
+     }
+

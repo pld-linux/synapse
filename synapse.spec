@@ -1,12 +1,13 @@
 Summary:	Application launcher
 Name:		synapse
 Version:	0.2.99.2
-Release:	1
+Release:	2
 License:	GPL v3+
 Group:		X11/Applications
 Source0:	https://launchpad.net/synapse-project/0.3/%{version}/+download/%{name}-%{version}.tar.xz
 # Source0-md5:	0d5559793377cee3b292db95f7ebcc4c
 Patch0:		%{name}-mate.patch
+Patch1:		%{name}-types.patch
 URL:		http://synapse.zeitgeist-project.com/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake >= 1:1.11
@@ -36,6 +37,7 @@ files by making use of the Zeitgeist engine.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p0
 
 %build
 %{__intltoolize}
