@@ -1,19 +1,18 @@
 Summary:	Application launcher
 Name:		synapse
-Version:	0.2.99.2
-Release:	2
+Version:	0.2.99.3
+Release:	1
 License:	GPL v3+
 Group:		X11/Applications
 Source0:	https://launchpad.net/synapse-project/0.3/%{version}/+download/%{name}-%{version}.tar.xz
-# Source0-md5:	0d5559793377cee3b292db95f7ebcc4c
+# Source0-md5:	7e24bc78ebe47b4d055b22eead40a6c5
 Patch0:		%{name}-mate.patch
-Patch1:		%{name}-types.patch
 URL:		http://synapse.zeitgeist-project.com/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake >= 1:1.11
+BuildRequires:	gettext-tools >= 0.19.6
 BuildRequires:	glib2-devel >= 1:2.28.0
 BuildRequires:	gtk+3-devel
-BuildRequires:	intltool >= 0.35.0
 BuildRequires:	json-glib-devel >= 0.10.0
 BuildRequires:	keybinder3-devel
 BuildRequires:	libappindicator-gtk3-devel
@@ -37,10 +36,9 @@ files by making use of the Zeitgeist engine.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p0
 
 %build
-%{__intltoolize}
+%{__gettextize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
