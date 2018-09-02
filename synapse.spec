@@ -32,6 +32,13 @@ BuildRequires:	vala-libgee >= 0.6.4
 BuildRequires:	vala-zeitgeist >= 0.9.14
 BuildRequires:	zeitgeist-devel >= 0.9.14
 %endif
+Requires:	glib2 >= 1:2.28.0
+Requires:	json-glib >= 0.10.0
+Requires:	libgee >= 0.5.2
+Requires:	rest >= 0.7
+%if %{with zeitgeist}
+Requires:	zeitgeist-libs >= 0.9.14
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
