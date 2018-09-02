@@ -4,12 +4,12 @@
 
 Summary:	Application launcher
 Name:		synapse
-Version:	0.2.99.3
+Version:	0.2.99.4
 Release:	1
 License:	GPL v3+
 Group:		X11/Applications
 Source0:	https://launchpad.net/synapse-project/0.3/%{version}/+download/%{name}-%{version}.tar.xz
-# Source0-md5:	7e24bc78ebe47b4d055b22eead40a6c5
+# Source0-md5:	38105c87200d82cf2066fb70cc9af59f
 Patch0:		%{name}-mate.patch
 URL:		https://launchpad.net/synapse-project
 BuildRequires:	autoconf >= 2.65
