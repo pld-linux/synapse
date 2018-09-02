@@ -7,7 +7,7 @@ Group:		X11/Applications
 Source0:	https://launchpad.net/synapse-project/0.3/%{version}/+download/%{name}-%{version}.tar.xz
 # Source0-md5:	7e24bc78ebe47b4d055b22eead40a6c5
 Patch0:		%{name}-mate.patch
-URL:		http://synapse.zeitgeist-project.com/
+URL:		https://launchpad.net/synapse-project
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	gettext-tools >= 0.19.6
