@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	zeitgeist	# build with zeitgeist support (causes stability issues)
+
 Summary:	Application launcher
 Name:		synapse
 Version:	0.2.99.3
@@ -24,8 +28,10 @@ BuildRequires:	rest-devel >= 0.7
 BuildRequires:	vala >= 0.16.0
 BuildRequires:	vala-libappindicator-gtk3
 BuildRequires:	vala-libgee >= 0.6.4
+%if %{with zeitgeist}
 BuildRequires:	vala-zeitgeist >= 0.9.14
 BuildRequires:	zeitgeist-devel >= 0.9.14
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -47,7 +53,7 @@ files by making use of the Zeitgeist engine.
 %configure \
 	--disable-silent-rules \
 	--enable-librest=yes \
-	--enable-zeitgeist=yes
+	%{__enable_disable zeitgeist}
 %{__make}
 
 %install
