@@ -1,5 +1,6 @@
 #
 # Conditional build:
+%bcond_without	appindicator	# build without appindicator support
 %bcond_with	zeitgeist	# build with zeitgeist support (causes stability issues)
 
 Summary:	Application launcher
@@ -19,14 +20,14 @@ BuildRequires:	glib2-devel >= 1:2.28.0
 BuildRequires:	gtk+3-devel
 BuildRequires:	json-glib-devel >= 0.10.0
 BuildRequires:	keybinder3-devel
-BuildRequires:	libappindicator-gtk3-devel
+%{?with_appindicator:BuildRequires:	libappindicator-gtk3-devel}
 BuildRequires:	libgee-devel >= 0.5.2
 BuildRequires:	libnotify-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig >= 1:0.21
 BuildRequires:	rest-devel >= 0.7
 BuildRequires:	vala >= 0.16.0
-BuildRequires:	vala-libappindicator-gtk3
+%{?with_appindicator:BuildRequires:	vala-libappindicator-gtk3}
 BuildRequires:	vala-libgee >= 0.6.4
 %if %{with zeitgeist}
 BuildRequires:	vala-zeitgeist >= 0.9.14
@@ -60,6 +61,7 @@ files by making use of the Zeitgeist engine.
 %configure \
 	--disable-silent-rules \
 	--enable-librest=yes \
+	%{__enable_disable appindicator indicator} \
 	%{__enable_disable zeitgeist}
 %{__make}
 
