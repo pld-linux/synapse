@@ -26,6 +26,7 @@ BuildRequires:	libnotify-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig >= 1:0.21
 BuildRequires:	rest-devel >= 0.7
+BuildRequires:	rpmbuild(macros) >= 1.527
 BuildRequires:	vala >= 0.16.0
 %{?with_appindicator:BuildRequires:	vala-libappindicator-gtk3}
 BuildRequires:	vala-libgee >= 0.6.4
