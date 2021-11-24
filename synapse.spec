@@ -27,11 +27,13 @@ BuildRequires:	libtool
 BuildRequires:	pkgconfig >= 1:0.21
 BuildRequires:	rest-devel >= 0.7
 BuildRequires:	rpmbuild(macros) >= 1.527
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	vala >= 0.16.0
 %{?with_appindicator:BuildRequires:	vala-libappindicator-gtk3}
 BuildRequires:	vala-libgee >= 0.6.4
 %if %{with zeitgeist}
 BuildRequires:	vala-zeitgeist >= 0.9.14
+BuildRequires:	xz
 BuildRequires:	zeitgeist-devel >= 0.9.14
 %endif
 Requires:	glib2 >= 1:2.28.0
